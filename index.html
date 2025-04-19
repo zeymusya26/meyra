@@ -2,90 +2,80 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Meyra'nın Geri Sayım Sayacı</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dikkat</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      background-color: #fce4ec; /* pudra pembesi */
-      font-family: 'Quicksand', sans-serif;
-      color: #5a2a52;
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      min-height: 100vh;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
       text-align: center;
     }
 
     h1 {
-      font-family: 'Pacifico', cursive;
       font-size: 3em;
-      margin-top: 50px;
-      color: #d63384;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
 
     p {
-      font-size: 1.2em;
+      font-size: 1.5em;
+      margin-bottom: 40px;
       max-width: 600px;
-      margin: 20px;
-      line-height: 1.6;
-      color: #6d3a64;
+    }
+
+    #countdown-title {
+      font-size: 2em;
+      margin-bottom: 10px;
+      color: #ffa500;
+      text-shadow: 0 0 10px #ff4500;
     }
 
     #countdown {
       font-size: 2em;
       font-weight: bold;
-      margin-top: 30px;
-      color: #c2185b;
-      background-color: #fff0f6;
-      padding: 15px 25px;
-      border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    footer {
-      margin-top: 50px;
-      font-size: 0.9em;
-      color: #9e4b74;
+      color: #ff4c4c;
     }
   </style>
 </head>
 <body>
-
-  <h1>Merhaba Ben Meyra!</h1>
-  <p>Ben bir <strong>HMGS öğrencisiyim</strong>, aynı zamanda Anadolu Üniversitesi'nde <strong>Web Tasarımı ve Kodlama</strong> okuyorum.  
-  Bu siteyi de kendimi göstermek için tasarladım! 🦄💻</p>
-
+  <h1>Dikkatinize ve Bilginize</h1>
+  <p>Kanka şu anda ders çalışmakla meşgulum,<br> aşağıdaki sayaç bittiği zaman döneceğim.</p>
+  
+  <div id="countdown-title">HMGS'ye SON</div>
   <div id="countdown">Yükleniyor...</div>
 
-  <footer>✨ Başarı bana çok yakışacak ✨</footer>
-
   <script>
-    function countdown() {
-      const sınavTarihi = new Date("2025-04-27T10:00:00").getTime();
-      const şimdi = new Date().getTime();
-      const fark = sınavTarihi - şimdi;
+    const targetDate = new Date("2025-04-27T10:00:00").getTime();
 
-      if (fark < 0) {
-        document.getElementById("countdown").innerHTML = "Sınav zamanı geldi! 💥";
+    const countdown = document.getElementById("countdown");
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        countdown.innerHTML = "Geri döndüm kanka! Hadi başlayalım 💪";
         return;
       }
 
-      const gün = Math.floor(fark / (1000 * 60 * 60 * 24));
-      const saat = Math.floor((fark % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const dakika = Math.floor((fark % (1000 * 60 * 60)) / (1000 * 60));
-      const saniye = Math.floor((fark % (1000 * 60)) / 1000);
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      document.getElementById("countdown").innerHTML = 
-        `HMGS sınavına: ${gün} gün ${saat} saat ${dakika} dk ${saniye} sn`;
+      countdown.innerHTML = `${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye`;
+    };
 
-      setTimeout(countdown, 1000);
-    }
-
-    countdown();
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
   </script>
-
 </body>
 </html>
